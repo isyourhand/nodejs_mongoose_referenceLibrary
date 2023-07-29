@@ -7,6 +7,7 @@ const ExpressMongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const AppError = require('./Utils/appError');
 const globalErrorhandler = require('./controllers/errorController');
@@ -16,7 +17,7 @@ const reviewRouter = require('./routes/reviewRouters');
 const viewRouter = require('./routes/viewRouters');
 const bookingRouter = require('./routes/bookingRouters');
 
-// Start express app..
+// Start express application
 const app = express();
 
 app.set('view engine', 'pug');
@@ -75,6 +76,9 @@ app.use(
 );
 
 // Serving static files
+
+// only compression the text that is sent to clients, So its not going to be working for images, because image are usually already compressed
+app.use(compression());
 
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();

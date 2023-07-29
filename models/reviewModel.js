@@ -84,7 +84,7 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
             ratingsAverage: 4.5,
         });
     }
-    console.log(stats);
+    //console.log(stats);
 };
 
 // post middleware does not get access to next.
