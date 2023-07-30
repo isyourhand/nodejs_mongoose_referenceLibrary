@@ -20,6 +20,8 @@ const bookingRouter = require('./routes/bookingRouters');
 // Start express application
 const app = express();
 
+app.enable('trust proxy');
+
 app.set('view engine', 'pug');
 // If is './views', will always relative to the directory from where we launched the Note application, and that usually is the root project folder.
 app.set('views', path.join(__dirname, 'views'));
