@@ -38,7 +38,7 @@ app.use(cors());
 // }))
 
 app.options('*', cors());
-app.options('api/v1/tours/:id', cors()); // only the tours could be deleted or patched from a cross-origin request,right.
+//app.options('api/v1/tours/:id', cors()); // only the tours could be deleted or patched from a cross-origin request,right.
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
