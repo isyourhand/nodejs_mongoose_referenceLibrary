@@ -39,3 +39,10 @@ process.on('unhandledRejection', (err) => {
         process.exit(1);
     }); // this way can wait for server close
 });
+
+process.on('SIGTERM', () => {
+    console.log('✋ SIGTERM RECEIVED, Shutting down gracefully');
+    server.close(() => {
+        console.log('😨 process terminated!');
+    });
+});
