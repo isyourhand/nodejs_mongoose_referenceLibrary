@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./Utils/appError');
 const globalErrorhandler = require('./controllers/errorController');
@@ -27,6 +28,18 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
+
+// Implement CORS
+app.use(cors());
+// Access-Control-Allow-Origin *
+// api.natours.com, front-end natours.com
+// app.use(cors({
+//     origin:'https://www.natours.com'
+// }))
+
+app.options('*', cors());
+app.options('api/v1/tours/:id', cors()); // only the tours could be deleted or patched from a cross-origin request,right.
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 // set Security HTTP headers
@@ -100,6 +113,7 @@ app.use((req, res, next) => {
 
 // 使用中间件，直接指定路线
 // mounting a new router on a route
+//app.use('/', cors(),viewRouter);
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
