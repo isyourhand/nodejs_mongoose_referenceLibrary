@@ -14,12 +14,7 @@ router.post(
     authController.protect,
     viewsController.updateUserData
 );
-router.get(
-    '/',
-    bookingController.createBookingCheckout,
-    authController.isLoggedIn,
-    viewsController.getOverview
-);
+router.get('/', authController.isLoggedIn, viewsController.getOverview);
 
 router.use(authController.isLoggedIn);
 

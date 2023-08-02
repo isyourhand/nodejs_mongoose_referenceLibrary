@@ -17,9 +17,16 @@ const userRouter = require('./routes/userRouters');
 const reviewRouter = require('./routes/reviewRouters');
 const viewRouter = require('./routes/viewRouters');
 const bookingRouter = require('./routes/bookingRouters');
+const bookingController = require('./controllers/bookingController');
 
 // Start express application
 const app = express();
+
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+    }) // 不知道为什么没完全起作用，当我在浏览器中使用const x = await fetch("http://127.0.0.1:3000/api/v1/tours")，在有一些网址会报错，但有一些又不会，很让人疑惑。
+);
 
 app.enable('trust proxy');
 
@@ -43,7 +50,6 @@ app.options('*', cors());
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 // set Security HTTP headers
-app.use(helmet({ contentSecurityPolicy: false }));
 
 //Development logging
 console.log(`${process.env.NODE_ENV}`);
@@ -59,14 +65,26 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+app.post(
+    '/webhook-chechout',
+    express.raw({ type: ' appliction/json' }), // This is a built-in middleware function in Express. It parses incoming request payloads into a Buffer and is based on body-parser.
+    bookingController.webhookCheckout
+); // Will read the body in a raw form, so must be called before the .json() function
+
 // middleware,in the middle of the request and the response
 // express.json mean actually use middleware, add middleware to our middleware stace
 // Body parser, reading data from body into req.body
+//console.log(req.body);
+
 app.use(
     express.json({
         limit: '10kb', // 只读取10kb以下的body
     })
-);
+); // Parse the JSON-formatted data in the request and attach the parsed parameters to req.body.
+//
+
+// express.raw
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
