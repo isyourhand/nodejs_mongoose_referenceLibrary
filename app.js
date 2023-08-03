@@ -67,7 +67,7 @@ app.use('/api', limiter);
 
 app.post(
     '/webhook-checkout',
-    express.raw({ type: ' appliction/json' }), // This is a built-in middleware function in Express. It parses incoming request payloads into a Buffer and is based on body-parser.
+    express.raw({ type: 'appliction/json' }), // This is a built-in middleware function in Express. It parses incoming request payloads into a Buffer and is based on body-parser.
     bookingController.webhookCheckout
 ); // Will read the body in a raw form, so must be called before the .json() function
 
