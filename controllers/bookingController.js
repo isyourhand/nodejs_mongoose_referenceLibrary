@@ -47,10 +47,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 const createBookingCheckout = async (session) => {
-    console.log(1);
+    console.log(session);
     const tour = session.client_reference_id;
     const user = await User.findOne({ email: session.customer_email });
-    const price = session.line_items[0].unit_amount / 100;
+    const price = session.line_items[0].price_data.unit_amount / 100;
     await Booking.create({ tour, user, price });
 };
 
@@ -63,15 +63,13 @@ exports.webhookCheckout = (req, res, next) => {
         event = stripe.webhooks.constructEvent(
             req.body,
             signature,
-            process.env.STRIPE_WEBHOOK_ID
+            process.env.STRIPE_WEBHOOK_ID // 被这个B密钥坑傻了，操了，真傻逼玩意，点击一下Signing secret下面的reveal就出来的玩意，我找了一个下午，TMD
         );
-        console.log(event.type);
     } catch (err) {
         return res.status(400).send(`Webhook error: ${err.message}`);
     }
-    console.log(event.type);
+
     if (event.type === 'checkout.session.completed') {
-        console.log(3);
         createBookingCheckout(event.data.object);
     }
     res.status(200).json({ received: true });
