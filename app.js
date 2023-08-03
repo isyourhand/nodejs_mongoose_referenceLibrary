@@ -74,7 +74,7 @@ app.post(
 // middleware,in the middle of the request and the response
 // express.json mean actually use middleware, add middleware to our middleware stace
 // Body parser, reading data from body into req.body
-//console.log(req.body);
+console.log(11);
 
 app.use(
     express.json({
