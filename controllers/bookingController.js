@@ -63,7 +63,7 @@ exports.webhookCheckout = (req, res, next) => {
         event = stripe.webhooks.constructEvent(
             req.body,
             signature,
-            STRIPE_WEBHOOK_ID
+            process.env.STRIPE_WEBHOOK_ID
         );
         console.log(event.type);
     } catch (err) {
