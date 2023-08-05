@@ -6,7 +6,7 @@ export const hideAlert = () => {
 
 export const showAlert = (type, msg, time = 7) => {
     hideAlert();
-
+    console.log(msg);
     const markup = `<div class="alert alert--${type}">${msg}</div>`;
     console.log('hello from alert!', markup);
     // 'afterbegin' means is inside of the body, but right at the beginning.

@@ -5,9 +5,10 @@ const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 
 exports.alerts = (req, res, next) => {
-    console.log(req.query);
     const alert = req.query;
     if (alert === 'booking') {
+        console.log(alert);
+        console.log(res.locals);
         res.locals.alert =
             "Your booking was successful! Please check your email for a confirmation.If your booking doesn't show uo here immediatly. please come back later.";
     }
