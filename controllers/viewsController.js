@@ -5,7 +5,7 @@ const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 
 exports.alerts = (req, res, next) => {
-    const alert = req.query;
+    const { alert } = req.query;
     if (alert === 'booking') {
         console.log(alert);
         console.log(res.locals);
