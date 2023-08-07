@@ -43,7 +43,7 @@ exports.createOne = (Model) =>
     catchAsync(async (req, res, next) => {
         // const newTour = new Tour({})
         // newTour.save()
-
+        //console.log(req.body);
         const newDoc = await Model.create(req.body);
 
         res.status(201).json({
@@ -65,6 +65,7 @@ exports.getOne = (Model, popOptions) =>
         let query = Model.findById(req.params.id);
         if (popOptions) query = query.populate(popOptions);
         const doc = await query;
+        console.log(doc.startDate.startDates[0]);
         // Tour.findOne({ _id: req.params.id }) would work the exact same way as above.
 
         if (!doc) {
@@ -98,8 +99,9 @@ exports.getAll = (Model) =>
         // To allow for nested GET reviews on tour (hack)
         let filter = {};
         if (req.params.tourId) filter = { tour: req.params.tourId };
+        if (req.params.userId) filter = { user: req.params.userId };
 
-        console.log(req.query);
+        console.log(1, req.params);
 
         const features = new APIFeatures(Model.find(filter), req.query)
             .filter()
@@ -108,6 +110,7 @@ exports.getAll = (Model) =>
             .sort();
 
         // pre-find middleware here is executed.
+        //console.log(features);
 
         // const doc = await features.query.explain();
         const doc = await features.query; //within the APIFeatures class, the query method is used to obtain the query object that has been processed by the filter(),sort(),limitFields(),and peginate() methods.

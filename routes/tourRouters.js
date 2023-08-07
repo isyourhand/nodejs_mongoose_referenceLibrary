@@ -3,8 +3,9 @@ const express = require('express');
 const tourController = require('./../controllers/tourController');
 const authController = require('../controllers/authController');
 const reviewRouter = require('./../routes/reviewRouters');
+const bookingRouter = require('./../routes/bookingRouters');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 // nested URL
 // router
@@ -15,6 +16,7 @@ const router = express.Router();
 //         reviewController.createReview
 //     );
 router.use('/:tourId/reviews', reviewRouter);
+router.use('/:tourId/bookings', bookingRouter);
 
 // router.param('id', tourController.checkID);
 router
