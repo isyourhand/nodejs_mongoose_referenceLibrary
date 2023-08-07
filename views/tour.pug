@@ -38,8 +38,7 @@ block content
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Quick facts
 
-                    - const date = tour.startDate.startDates[0].toLocaleString('en-us',{month: 'short', day:'numeric', year:'numeric'})
-                    - console.log(tour)
+                    - const date = tour.startDates[0].startData.toLocaleString('en-us',{month: 'short', day:'numeric', year:'numeric'})
                     +overviewBox('Next date', date, 'calendar')
                     +overviewBox('Difficulty', tour.difficulty, 'trending-up')
                     +overviewBox('Participants', `${tour.maxGroupSize} people`, 'user')
