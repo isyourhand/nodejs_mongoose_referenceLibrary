@@ -138,8 +138,10 @@ app.use('/api/v1/review', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
-    next(new AppError(`can't find ${req.originalUrl} on this server!`, 404)); // if we pass a message whatever it is which will skip all other middlewares in the stack and send it to our global error handling middleware.
+    next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
 });
+
+// if we pass a message whatever it is which will skip all other middlewares in the stack and send it to our global error handling middleware.
 
 app.use(globalErrorhandler);
 
