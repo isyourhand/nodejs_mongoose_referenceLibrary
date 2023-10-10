@@ -38,6 +38,7 @@ module.exports = class Email {
             },
         });
     }
+
     async send(template, subject) {
         // sned the actual email
 

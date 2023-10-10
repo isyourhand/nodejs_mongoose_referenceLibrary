@@ -12,6 +12,7 @@ export const login = async (email, password) => {
                 password,
             },
         });
+        console.log('in login...');
 
         if (res.data.status === 'success') {
             showAlert('success', 'Logged in successfully!');
@@ -37,7 +38,7 @@ export const logout = async () => {
             // 'true' means force a reload from the server and not from the browser cache.
             // If there is no 'ture it might simply load the same page from the cache.
             window.setTimeout(() => {
-                location.reload(true);
+                location.assign('/');
             }, 1000);
         }
     } catch (err) {

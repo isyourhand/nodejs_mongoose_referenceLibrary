@@ -29,6 +29,12 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.getSignUpForm = catchAsync(async (req, res, next) => {
+    res.status(200).render('signup', {
+        title: 'Sign Up',
+    });
+});
+
 exports.getTour = catchAsync(async (req, res, next) => {
     // 1) get the data, for the requested tour (including reviews and guides).
     const tour = await Tour.findOne({ slug: req.params.slug }).populate({

@@ -22,6 +22,7 @@ const handleJsonWebTokenError = () =>
 const handleTokenExpiredError = () =>
     new AppError('Your token has expired! Please log in again.', 401);
 
+// Dev environment
 const sendErrorDev = (err, req, res) => {
     // originalUrl is the entire URL without host
 
@@ -41,6 +42,8 @@ const sendErrorDev = (err, req, res) => {
         msg: err.message,
     });
 };
+
+// Prod environment
 const sendErrorProd = (err, req, res) => {
     // API
     if (req.originalUrl.startsWith('/api')) {
@@ -64,6 +67,7 @@ const sendErrorProd = (err, req, res) => {
             message: 'Something went very wrong!',
         });
     }
+
     console.log('ERROR- 😀🤣', err);
     // RENDERED WEBSITE
     if (err.isOperational) {

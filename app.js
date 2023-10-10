@@ -30,8 +30,12 @@ app.use(
 
 app.enable('trust proxy');
 
+// Set the file extension. refer to the Express documentation for
 app.set('view engine', 'pug');
+
 // If is './views', will always relative to the directory from where we launched the Note application, and that usually is the root project folder.
+// path.join() used to join multiple path segments into a complete path.
+// __dirname is a global variable in Nodejs that represents the absolute path of the directory of the current module.
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES

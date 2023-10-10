@@ -1,7 +1,7 @@
 module.exports = (fn) => {
     return (req, res, next) => {
         fn(req, res, next).catch(next); // any occur within fn are passed to the next middleware function.
-    };
+    }; // catch(next) seems like a shortcut spell?
 };
 
 /*
