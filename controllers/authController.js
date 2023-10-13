@@ -39,6 +39,10 @@ const createSendToken = (user, statusCode, req, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+    // // If registered but not activated, delete it.
+    // const user = await User.findOne({ email: req.body.email, active: false });
+    // if (user) await User.deleteOne({ email: req.body.email });
+
     const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
@@ -46,6 +50,7 @@ exports.signup = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
         passwordChangedAt: req.body.passwordChangedAt,
         role: req.body.role,
+        // active: false,
     });
     const url = `${req.rotocol}://${req.get('host')}/me`;
     //console.log(url);
@@ -207,7 +212,9 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
         // });
         const resetURL = `${req.protocol}://${req.get(
             'host'
-        )}/api/v1/users/resetPassword/${resetToken}`;
+        )}/resetPassword/${resetToken}`;
+
+        console.log(resetURL);
 
         await new Email(user, resetURL).sendPasswordReset();
 

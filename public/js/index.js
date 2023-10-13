@@ -1,27 +1,58 @@
 import '@babel/polyfill';
 import { displayMap } from './mapbox';
-import { login, logout } from './login';
+import {
+    login,
+    logout,
+    resetPassword,
+    sendResetPasswordEmail,
+    signup,
+} from './auth';
 import { updateSettings } from './updateSetting';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
-import { signup } from './signup';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
+const emailForm = document.querySelector('.form--email');
+const resetPasswprdForm = document.querySelector('.form--resetRassword');
 const signupForm = document.querySelector('.form--signup');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userUpdateForm = document.querySelector('.form-user-data');
 const passUpdataForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const ifResetPassBtn = document.getElementById('resetPass');
 
-// VALUES
+// GET VALUES
 
 if (mapBox) {
     const locations = JSON.parse(
         document.getElementById('map').dataset.locations
     );
     displayMap(locations);
+}
+
+if (emailForm) {
+    console.log(1);
+    emailForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const send = document.getElementById('sendEmail');
+        console.log(email);
+        sendResetPasswordEmail(email, send);
+    });
+}
+
+if (resetPasswprdForm) {
+    resetPasswprdForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const password = document.getElementById('password').value;
+        const passwordConfirm =
+            document.getElementById('passwordConfirm').value;
+        const token = document.getElementById('token').textContent;
+        console.log(1, token);
+        resetPassword(password, passwordConfirm, token);
+    });
 }
 
 if (signupForm) {
@@ -86,6 +117,7 @@ if (passUpdataForm) {
     });
 }
 
+// buttonTrigger
 if (bookBtn)
     bookBtn.addEventListener('click', (e) => {
         e.target.textContent = 'Processing...';
@@ -93,6 +125,13 @@ if (bookBtn)
         const { tourId } = e.target.dataset; // Same effect with above.
         bookTour(tourId);
     });
+
+if (ifResetPassBtn) {
+    ifResetPassBtn.addEventListener('click', (e) => {
+        e.target.textContent = 'precessing...';
+        location.assign('/sendEmail');
+    });
+}
 
 console.log(document.querySelector('body'));
 const alertMessage = document.querySelector('body').dataset.alert;

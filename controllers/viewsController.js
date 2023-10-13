@@ -29,6 +29,20 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     });
 });
 
+// Reset Password
+exports.getResetPasswordForm = catchAsync(async (req, res, next) => {
+    res.status(200).render('resetPassword/resetPassword', {
+        title: 'Reset Password',
+        token: req.params.resetToken,
+    });
+});
+
+exports.getSendEmailForm = catchAsync(async (req, res, next) => {
+    res.status(200).render('resetPassword/sendEmail', {
+        title: 'Send Email',
+    });
+});
+
 exports.getSignUpForm = catchAsync(async (req, res, next) => {
     res.status(200).render('signup', {
         title: 'Sign Up',

@@ -43,6 +43,14 @@ body {
   flex-direction: column;
 }
 
+/* my costomize */
+.transparent-text {
+  opacity: 0; /* 设置透明度，范围从 0（完全透明）到 1（完全不透明） */
+}
+.right-element {
+  float: right;
+}
+
 .main {
   background-color: #f7f7f7;
   padding: 8rem 6rem;

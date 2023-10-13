@@ -25,6 +25,11 @@ router.get('/tour/:slug', viewsController.getTour);
 // /login
 router.get('/login', viewsController.getLoginForm);
 
+// signUp
 router.get('/sign-up', viewsController.getSignUpForm);
+
+// resetPassword
+router.get('/resetPassword/:resetToken', viewsController.getResetPasswordForm);
+router.get('/sendEmail', viewsController.getSendEmailForm);
 
 module.exports = router;

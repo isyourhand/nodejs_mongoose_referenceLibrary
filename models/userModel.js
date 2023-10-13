@@ -113,6 +113,8 @@ userShema.methods.changedPasswordAfter = function (JWTTimestamp) {
 userShema.methods.createPasswordResetToken = function () {
     const resetToken = crypto.randomBytes(32).toString('hex');
 
+    // 如果说用户自己要修改密码，并没有忘记密码。我该怎么处理呢？我还需要这个resettoken吗
+
     // createHash('sha256'): create a SHA-256 hash object.
     // update(resetToken): update the hash object with the contents of the resetToken string.
     // digest('hex'): generates the final hash value as a hexadecimal string.

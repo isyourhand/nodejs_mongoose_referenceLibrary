@@ -15,6 +15,7 @@ module.exports = class Email {
     newTransport() {
         if (process.env.NODE_ENV === 'production') {
             // Sendgrid
+            console.log('try to sending email with gmail...');
             return nodemailer.createTransport({
                 // host: 'smtp.gmail.com',
                 // port: 465,
