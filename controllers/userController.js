@@ -18,6 +18,7 @@ const sharp = require('sharp');
 //         cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
 //     },
 // });
+
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
@@ -36,6 +37,7 @@ const upload = multer({
     fileFilter: multerFilter,
 });
 
+// Specifies that only file with the field name 'photo' can be processed.
 exports.uploadUserPhoto = upload.single('photo');
 
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
@@ -53,7 +55,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 });
 
 const filterObj = (obj, ...allowedFilelds) => {
-    // Loop through all thhe fields that are in the object,for
+    // Loop through all the fields that are in the object,for
     // each allowed field,we create a new field in the newObj.
     const newObj = {};
     Object.keys(obj).forEach((el) => {

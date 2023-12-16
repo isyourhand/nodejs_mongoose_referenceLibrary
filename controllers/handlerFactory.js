@@ -65,7 +65,7 @@ exports.getOne = (Model, popOptions) =>
         let query = Model.findById(req.params.id);
         if (popOptions) query = query.populate(popOptions);
         const doc = await query;
-        console.log(doc.startDate.startDates[0]);
+        //console.log(doc.startDate.startDates[0]);
         // Tour.findOne({ _id: req.params.id }) would work the exact same way as above.
 
         if (!doc) {
@@ -75,7 +75,6 @@ exports.getOne = (Model, popOptions) =>
         res.status(200).json({
             // Jsend格式
             status: 'success',
-            results: doc.length,
             data: {
                 data: doc,
             },

@@ -63,7 +63,7 @@ const userShema = new mongoose.Schema({
 // this middleware function is gonna be happened between the moment that we receive that data and the moment where it's actually presisted to the database.
 userShema.pre('save', async function (next) {
     if (!this.isModified('password')) return next(); // isModified 是否有被修改。
-
+    console.log('password is not modified');
     this.password = await bcrypt.hash(this.password, 12); // this hash() is asynchronous version.
     this.passwordConfirm = undefined;
 

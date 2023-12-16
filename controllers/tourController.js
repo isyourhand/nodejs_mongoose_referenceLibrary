@@ -108,7 +108,7 @@ exports.aliasTopTours = (req, res, next) => {
     next();
 };
 
-exports.getAllTours = factory.getAll(Tour);
+exports.getAllTours = factory.getAll(Tour, { path: 'reviews' });
 
 exports.getTour = factory.getOne(Tour, { path: 'reviews' });
 

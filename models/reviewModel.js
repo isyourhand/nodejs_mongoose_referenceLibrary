@@ -51,10 +51,10 @@ reviewSchema.pre(/^find/, function (next) {
         path: 'user',
         select: 'name photo',
     });
-    // this.populate({
-    //     path: 'tour',
-    //     select: 'name',
-    // });
+    this.populate({
+        path: 'tour',
+        select: 'name',
+    });
     next();
 });
 
@@ -62,17 +62,18 @@ reviewSchema.pre(/^find/, function (next) {
 reviewSchema.statics.calcAverageRatings = async function (tourId) {
     const stats = await this.aggregate([
         {
-            $match: { tour: tourId },
+            $match: { tour: tourId }, // Find the reviews specified by the tourID.
         },
         {
             $group: {
-                _id: '$tour',
+                _id: '$tour', // Basis for grouping
                 nRating: { $sum: 1 },
                 avgRating: { $avg: '$rating' },
             },
         },
     ]);
 
+    // stats is a array
     if (stats.length > 0) {
         await Tour.findByIdAndUpdate(tourId, {
             ratingsQuantity: stats[0].nRating,
@@ -94,7 +95,7 @@ reviewSchema.post('save', function (next) {
     this.constructor.calcAverageRatings(this.tour);
 });
 
-// /^findOneAnd/ can Search findByIdAndUpdate and findByIdAndUpdate
+// /^findOneAnd/ can Search findByIdAndUpdate and findOneAndDelete
 // tip: If 'pre' is change to 'post', 'this' will no longer points to query.
 reviewSchema.pre(/^findOneAnd/, async function (next) {
     // this points to query
@@ -106,6 +107,7 @@ reviewSchema.pre(/^findOneAnd/, async function (next) {
 
 reviewSchema.post(/^findOneAnd/, async function (next) {
     // await this.findOne(); does NOT work here, query has already executed.
+    // this.r.constructor points to the new review collection that has already been updated.
     await this.r.constructor.calcAverageRatings(this.r.tour);
 });
 

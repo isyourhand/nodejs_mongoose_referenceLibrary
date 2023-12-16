@@ -22,9 +22,7 @@ Utilize it when using API. Verify the presence of token, authenticate the token,
 
 Ensure that the user type meets the requirements.
 
----
-
-To understand the detailed logic of the following two APIs, it is necessary to combine them with the middleware 'createPasswordResetToken' in the usermodel
+(To understand the detailed logic of the following two APIs, it is necessary to combine them with the middleware 'createPasswordResetToken' in the usermodel.)
 
 ##### - fogotPassword
 

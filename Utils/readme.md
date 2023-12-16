@@ -1,7 +1,7 @@
 ### email.js
 
 Based on the nodemailer module, use Gmail to send emails. You can use it by adding GMAIL_USERNAME and GMAIL_PASSWORD in the config.env file.
-Currently, it supports sending email verification after registration and sending emails for password reset when forgotten.
+Currently, it supports 'sending email verification after registration (not implemented)' and sending emails for password reset when forgotten.
 
 ### catchAsync.js
 

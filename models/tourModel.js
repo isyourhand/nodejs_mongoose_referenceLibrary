@@ -92,6 +92,7 @@ const tourSchema = new mongoose.Schema(
                 soldOut: { type: Boolean, default: false },
             },
         ],
+        // startDates: [Date],
 
         secretTour: {
             type: Boolean,
@@ -141,6 +142,7 @@ tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
 tourSchema.index({ startLocation: '2dsphere' });
 
+// Don't exist within database, but you can see it in the query result.
 tourSchema.virtual('durationWeeks').get(function () {
     // Using a regular function is to use 'this' keyword to refer to the current directory.
     return this.duration / 7;
